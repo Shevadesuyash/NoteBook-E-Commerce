@@ -1,0 +1,178 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: your-name
+      changes:
+        - createTable:
+            tableName: brand
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: type
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: product
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: price
+                  type: DECIMAL(10,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: picture_url
+                  type: VARCHAR(255)
+              - column:
+                  name: product_type_id
+                  type: INT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_product_type
+                    references: type(id)
+              - column:
+                  name: product_brand_id
+                  type: INT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_product_brand
+                    references: brand(id)
+
+  - changeSet:
+      id: 2
+      author: your-name
+      changes:
+        - insert:
+            tableName: brand
+            columns:
+              - column:
+                  name: name
+                  value: Classmate
+        - insert:
+            tableName: brand
+            columns:
+              - column:
+                  name: name
+                  value: Navneet
+        - insert:
+            tableName: brand
+            columns:
+              - column:
+                  name: name
+                  value: JK Paper
+        - insert:
+            tableName: brand
+            columns:
+              - column:
+                  name: name
+                  value: Camlin
+        - insert:
+            tableName: brand
+            columns:
+              - column:
+                  name: name
+                  value: Kokuyo
+        - insert:
+            tableName: brand
+            columns:
+              - column:
+                  name: name
+                  value: ITC Paperkraft
+        - insert:
+            tableName: brand
+            columns:
+              - column:
+                  name: name
+                  value: Bilt
+
+  - changeSet:
+      id: 3
+      author: your-name
+      changes:
+        - insert:
+            tableName: type
+            columns:
+              - column:
+                  name: name
+                  value: Single Line Notebooks
+        - insert:
+            tableName: type
+            columns:
+              - column:
+                  name: name
+                  value: Four Line Notebooks
+        - insert:
+            tableName: type
+            columns:
+              - column:
+                  name: name
+                  value: Square/Ruled Notebooks
+        - insert:
+            tableName: type
+            columns:
+              - column:
+                  name: name
+                  value: Drawing Books
+        - insert:
+            tableName: type
+            columns:
+              - column:
+                  name: name
+                  value: Practical Notebooks
+        - insert:
+            tableName: type
+            columns:
+              - column:
+                  name: name
+                  value: Project Books
+        - insert:
+            tableName: type
+            columns:
+              - column:
+                  name: name
+                  value: Premium Journals
+
+  - changeSet:
+      id: 4
+      author: 'Suyash Shevade'
+      changes:
+        - sqlFile:
+            path: db/changelog/data/initial_products.sql
