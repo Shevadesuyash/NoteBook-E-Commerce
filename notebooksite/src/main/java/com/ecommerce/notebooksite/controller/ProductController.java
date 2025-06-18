@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
-@RequestMapping("/product")
+@RequestMapping("/api")
 public class ProductController {
 
     private final ProductService productService;
