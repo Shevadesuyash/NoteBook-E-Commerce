@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 1
-      author: your-name
+      author: Suyash Shevade
       changes:
         - createTable:
             tableName: brand
@@ -78,7 +78,7 @@ databaseChangeLog:
 
   - changeSet:
       id: 2
-      author: your-name
+      author: Suyash Shevade
       changes:
         - insert:
             tableName: brand
@@ -125,7 +125,7 @@ databaseChangeLog:
 
   - changeSet:
       id: 3
-      author: your-name
+      author: Suyash Shevade
       changes:
         - insert:
             tableName: type

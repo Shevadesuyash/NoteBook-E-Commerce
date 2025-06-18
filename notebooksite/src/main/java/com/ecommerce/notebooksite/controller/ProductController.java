@@ -23,13 +23,13 @@ public class ProductController {
     private final TypeService typeService;
     private final BrandService brandService;
 
-    public ProductController(ProductServiceImpl productService, TypeServiceImpl typeService, BrandServiceImpl brandService) {
+    public ProductController(ProductService productService, TypeService typeService, BrandService brandService) {
         this.productService = productService;
         this.typeService = typeService;
         this.brandService = brandService;
     }
 
-    @GetMapping("{/id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ProductResponse> getProductById(@PathVariable("id") Integer productId){
         ProductResponse productResponse = productService.getProductById(productId);
         return new ResponseEntity<>(productResponse, HttpStatus.OK);

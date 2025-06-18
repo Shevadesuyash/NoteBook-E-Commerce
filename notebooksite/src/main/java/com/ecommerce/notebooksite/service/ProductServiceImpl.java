@@ -7,14 +7,20 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Service;
 
 @Log4j2
+@Service
 public class ProductServiceImpl implements ProductService {
 
   private final ProductRepository ProductRepository;
+  private final BrandService brandService;
+  private final TypeService typeService;
 
-  public ProductServiceImpl(ProductRepository ProductRepository) {
+  public ProductServiceImpl(ProductRepository ProductRepository, BrandService brandService, TypeService typeService) {
     this.ProductRepository = ProductRepository;
+      this.brandService = brandService;
+      this.typeService = typeService;
   }
 
   @Override

@@ -6,8 +6,10 @@ import com.ecommerce.notebooksite.repository.TypeRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Service;
 
 @Log4j2
+@Service
 public class TypeServiceImpl implements TypeService {
 
   private final TypeRepository typeRepository;

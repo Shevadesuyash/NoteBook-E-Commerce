@@ -15,26 +15,26 @@ import lombok.NoArgsConstructor;
 public class Product {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "Id")
+  @Column(name = "id")
   private Integer id;
 
-  @Column(name = "Name")
+  @Column(name = "name")
   private String name;
 
-  @Column(name = "Description")
+  @Column(name = "description")
   private String description;
 
-  @Column(name = "Price")
+  @Column(name = "price")
   private Long price;
 
-  @Column(name = "PictureUrl")
+  @Column(name = "picture_url")
   private String pictureUrl;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "ProductBrandId", referencedColumnName = "Id")
+  @JoinColumn(name = "product_brand_id", referencedColumnName = "Id")
   private Brand brand;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "ProductTypeId", referencedColumnName = "Id")
+  @JoinColumn(name = "product_type_id", referencedColumnName = "Id")
   private Type type;
 }

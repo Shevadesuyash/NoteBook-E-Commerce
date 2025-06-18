@@ -16,9 +16,9 @@ import lombok.NoArgsConstructor;
 public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="Id")
+    @Column(name="id")
     private Integer id;
-    @Column(name="Name")
+    @Column(name="name")
     private String name;
 
     @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY)
