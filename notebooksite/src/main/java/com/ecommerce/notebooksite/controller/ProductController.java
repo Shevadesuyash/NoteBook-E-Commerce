@@ -4,15 +4,13 @@ import com.ecommerce.notebooksite.model.BrandResponse;
 import com.ecommerce.notebooksite.model.ProductResponse;
 import com.ecommerce.notebooksite.model.TypeResponse;
 import com.ecommerce.notebooksite.service.*;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.*;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
@@ -40,6 +38,32 @@ public class ProductController {
         List<ProductResponse> responses = productService.getAllProducts();
         return new ResponseEntity<>(responses,HttpStatus.OK);
     }
+    @GetMapping("/getProducts")
+    public ResponseEntity<Page<ProductResponse>> getProducts(
+            @PageableDefault(size = 10) Pageable pageable,
+            @RequestParam(name = "keyword",required = false)String keyword,
+            @RequestParam(name = "sort",defaultValue = "name")String sort,
+            @RequestParam(name = "order",defaultValue = "asc")String order
+    ){
+
+
+        Page<ProductResponse> responses;
+
+        Sort.Direction direction ="asc".equalsIgnoreCase(order)?Sort.Direction.ASC:Sort.Direction.DESC;
+        Sort sorting =Sort.by(direction,sort);
+
+        if(keyword!=null && !keyword.isEmpty()){
+            List<ProductResponse> productResponsesList=productService.searchProductByName(keyword);
+            responses= new PageImpl<>(productResponsesList,pageable,productResponsesList.size());
+        }else {
+      responses =
+          productService.getProducts(
+              PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),sorting));
+        }
+
+
+    return new ResponseEntity<>(responses, HttpStatus.OK);
+    }
 
     @GetMapping("/getBrand")
     public ResponseEntity<List<BrandResponse>> getBrand(){
@@ -53,5 +77,10 @@ public class ProductController {
         return new ResponseEntity<>(responses,HttpStatus.OK);
     }
 
+    @GetMapping("/search/{key}")
+    public ResponseEntity <List<ProductResponse>> searchProduct(@PathVariable("key") String key){
+        List<ProductResponse> responses =productService.searchProductByName(key);
+        return  new ResponseEntity<>(responses,HttpStatus.OK);
+    }
 
 }
