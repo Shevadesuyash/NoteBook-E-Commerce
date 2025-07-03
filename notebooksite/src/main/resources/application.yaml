@@ -20,10 +20,10 @@ spring:
         format_sql: true
 
   liquibase:
-    enabled: true
+    enabled: false
     change-log: classpath:db/changelog/db.changelog-master.yaml
     contexts: dev
-    drop-first: true
+    drop-first: false
 logging:
   level:
     liquibase: DEBUG

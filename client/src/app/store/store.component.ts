@@ -43,41 +43,42 @@ export class StoreComponent implements OnInit {
       this.fetchProducts(this.storeData.currentPage);
     }
   }
-  
+
 
   fetchProducts(page: number = 1) {
     // Calculate the backend page (subtract 1)
     const backendPage = page - 1;
-  
+
     // Pass the selected brand/type ids
     const brandId = this.storeData.selectedBrand?.id;
     const typeId = this.storeData.selectedType?.id;
-  
+
     // Construct the base URL
-    let url = `${this.storeService.apiUrl}?`;
-  
+    let url = `${this.storeService.apiUrl}/getProducts?`;
+
     // Check the brand and type
     if (brandId && brandId !== 0) {
       url += `brandId=${brandId}&`;
     }
-  
+
     if (typeId && typeId !== 0) {
       url += `typeId=${typeId}&`;
     }
-  
+
     // Search
     if (this.storeData.search) {
       url += `keyword=${this.storeData.search}&`;
     }
-  
+
     // Append backendPage and size parameters to the URL
     url += `page=${backendPage}&size=${this.storeData.pageSize}`;
-  
+
     // Include sorting parameters only when selectedSort is not empty
     if (this.storeData.selectedSort !== 'asc') {
       url += `&sort=name&order=${this.storeData.selectedSort}`;
     }
-  
+
+  console.log("url : "+url);
     this.storeService.getProducts(brandId, typeId, url).subscribe({
       next: (data) => {
         this.storeData.products = data.content;
@@ -92,8 +93,8 @@ export class StoreComponent implements OnInit {
       },
     });
   }
-  
-  
+
+
   getBrands(){
     this.storeService.getBrands().subscribe({
       next:(response)=>(this.storeData.brands = [{id: 0, name:'All'}, ...response]),

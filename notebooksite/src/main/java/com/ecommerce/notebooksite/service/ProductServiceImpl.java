@@ -70,4 +70,41 @@ public class ProductServiceImpl implements ProductService {
     List<ProductResponse> responses = listProduct.stream().map(this::convertToProductResponse).toList();
     return  responses;
   }
+
+  @Override
+  public List<ProductResponse> searchProductByBrandTypeAndName(Integer brandId, Integer typeId, String keyword) {
+
+    List<Product> listProduct = productRepository.findByBrandTypeAndName(brandId,typeId,keyword);
+
+    List<ProductResponse> responses = listProduct.stream().map(this::convertToProductResponse).toList();
+    return  responses;
+
+  }
+
+  @Override
+  public List<ProductResponse> searchProductByBrandAndType(Integer brandId, Integer typeId) {
+
+    List<Product> listProduct = productRepository.findByBrandAndType(brandId,typeId);
+
+    List<ProductResponse> responses = listProduct.stream().map(this::convertToProductResponse).toList();
+    return  responses;
+  }
+
+  @Override
+  public List<ProductResponse> searchProductByBrand(Integer brandId) {
+
+    List<Product> listProduct = productRepository.findByBrand(brandId);
+
+    List<ProductResponse> responses = listProduct.stream().map(this::convertToProductResponse).toList();
+    return  responses;
+  }
+
+  @Override
+  public List<ProductResponse> searchProductByType(Integer typeId) {
+
+    List<Product> listProduct = productRepository.findByType(typeId);
+
+    List<ProductResponse> responses = listProduct.stream().map(this::convertToProductResponse).toList();
+    return  responses;
+  }
 }

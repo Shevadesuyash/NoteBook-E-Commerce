@@ -15,9 +15,9 @@ export class StoreService {
 
   getProducts(brandId?: number, typeId?: number, url?: string): Observable<ProductData>{
     // Construct the base URL
-    const apiUrl = url || this.apiUrl;
-    const urlx = `${this.apiUrl}/getProducts`
-    return this.http.get<ProductData>(urlx);
+    const finalUrl = url || `${this.apiUrl}/getProducts`;
+      return this.http.get<ProductData>(finalUrl);
+
   }
 
   getProduct(id: number){
