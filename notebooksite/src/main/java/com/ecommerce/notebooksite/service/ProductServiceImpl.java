@@ -4,7 +4,6 @@ import com.ecommerce.notebooksite.entity.Product;
 import com.ecommerce.notebooksite.model.ProductResponse;
 import com.ecommerce.notebooksite.repository.ProductRepository;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -19,10 +18,11 @@ public class ProductServiceImpl implements ProductService {
   private final BrandService brandService;
   private final TypeService typeService;
 
-  public ProductServiceImpl(ProductRepository ProductRepository, BrandService brandService, TypeService typeService) {
+  public ProductServiceImpl(
+      ProductRepository ProductRepository, BrandService brandService, TypeService typeService) {
     this.productRepository = ProductRepository;
-      this.brandService = brandService;
-      this.typeService = typeService;
+    this.brandService = brandService;
+    this.typeService = typeService;
   }
 
   @Override
@@ -37,21 +37,29 @@ public class ProductServiceImpl implements ProductService {
   }
 
   private ProductResponse convertToProductResponse(Product product) {
-    return ProductResponse.builder().id(product.getId()).name(product.getName())
-            .description(product.getDescription()).pictureUrl(product.getPictureUrl())
-            .price(product.getPrice()).productBrand(product.getBrand().getName())
-            .productType(product.getType().getName()).build();
+    return ProductResponse.builder()
+        .id(product.getId())
+        .name(product.getName())
+        .description(product.getDescription())
+        .pictureUrl(product.getPictureUrl())
+        .price(product.getPrice())
+        .productBrand(product.getBrand().getName())
+        .productType(product.getType().getName())
+        .build();
   }
 
   @Override
   public ProductResponse getProductById(Integer productId) {
-      log.info("Fetching  Product by id : "+productId);
-      Product product = productRepository.findById(productId)
-              .orElseThrow(()->(new RuntimeException("Product with id "+productId+" is not there")));
+    log.info("Fetching  Product by id : " + productId);
+    Product product =
+        productRepository
+            .findById(productId)
+            .orElseThrow(
+                () -> (new RuntimeException("Product with id " + productId + " is not there")));
 
-      ProductResponse responses = convertToProductResponse(product);
+    ProductResponse responses = convertToProductResponse(product);
 
-      return responses;
+    return responses;
   }
 
   @Override
@@ -64,30 +72,33 @@ public class ProductServiceImpl implements ProductService {
 
   @Override
   public List<ProductResponse> searchProductByName(String keyWord) {
-    log.info("search by Key : "+keyWord);
+    log.info("search by Key : " + keyWord);
     List<Product> listProduct = productRepository.findByName(keyWord);
 
-    List<ProductResponse> responses = listProduct.stream().map(this::convertToProductResponse).toList();
-    return  responses;
+    List<ProductResponse> responses =
+        listProduct.stream().map(this::convertToProductResponse).toList();
+    return responses;
   }
 
   @Override
-  public List<ProductResponse> searchProductByBrandTypeAndName(Integer brandId, Integer typeId, String keyword) {
+  public List<ProductResponse> searchProductByBrandTypeAndName(
+      Integer brandId, Integer typeId, String keyword) {
 
-    List<Product> listProduct = productRepository.findByBrandTypeAndName(brandId,typeId,keyword);
+    List<Product> listProduct = productRepository.findByBrandTypeAndName(brandId, typeId, keyword);
 
-    List<ProductResponse> responses = listProduct.stream().map(this::convertToProductResponse).toList();
-    return  responses;
-
+    List<ProductResponse> responses =
+        listProduct.stream().map(this::convertToProductResponse).toList();
+    return responses;
   }
 
   @Override
   public List<ProductResponse> searchProductByBrandAndType(Integer brandId, Integer typeId) {
 
-    List<Product> listProduct = productRepository.findByBrandAndType(brandId,typeId);
+    List<Product> listProduct = productRepository.findByBrandAndType(brandId, typeId);
 
-    List<ProductResponse> responses = listProduct.stream().map(this::convertToProductResponse).toList();
-    return  responses;
+    List<ProductResponse> responses =
+        listProduct.stream().map(this::convertToProductResponse).toList();
+    return responses;
   }
 
   @Override
@@ -95,8 +106,9 @@ public class ProductServiceImpl implements ProductService {
 
     List<Product> listProduct = productRepository.findByBrand(brandId);
 
-    List<ProductResponse> responses = listProduct.stream().map(this::convertToProductResponse).toList();
-    return  responses;
+    List<ProductResponse> responses =
+        listProduct.stream().map(this::convertToProductResponse).toList();
+    return responses;
   }
 
   @Override
@@ -104,7 +116,8 @@ public class ProductServiceImpl implements ProductService {
 
     List<Product> listProduct = productRepository.findByType(typeId);
 
-    List<ProductResponse> responses = listProduct.stream().map(this::convertToProductResponse).toList();
-    return  responses;
+    List<ProductResponse> responses =
+        listProduct.stream().map(this::convertToProductResponse).toList();
+    return responses;
   }
 }

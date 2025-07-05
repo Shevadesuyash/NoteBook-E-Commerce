@@ -8,7 +8,7 @@ import { AccountService } from './account/account.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'Sports Center';
+  title = 'NoteBook Center';
 
   constructor(
     private basketService: BasketService,

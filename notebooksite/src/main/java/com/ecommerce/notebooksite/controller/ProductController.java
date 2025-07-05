@@ -51,16 +51,15 @@ public class ProductController {
 
     Page<ProductResponse> responses;
 
-    Sort.Direction direction = "asc".equalsIgnoreCase(order) ? Sort.Direction.ASC : Sort.Direction.DESC;
+    Sort.Direction direction =
+        "asc".equalsIgnoreCase(order) ? Sort.Direction.ASC : Sort.Direction.DESC;
     Sort sorting = Sort.by(direction, sort);
 
-    log.info("keyWord : "+keyword);
-    log.info("brandId : "+brandId);
-      log.info("typeId : "+typeId);
-      log.info("sort : "+sort);
-      log.info("order : "+order);
-
-
+    log.info("keyWord : " + keyword);
+    log.info("brandId : " + brandId);
+    log.info("typeId : " + typeId);
+    log.info("sort : " + sort);
+    log.info("order : " + order);
 
     if (brandId != null && typeId != null && keyword != null && !keyword.isEmpty()) {
       List<ProductResponse> productResponsesList =
@@ -80,7 +79,8 @@ public class ProductController {
       List<ProductResponse> productResponsesList = productService.searchProductByName(keyword);
       responses = new PageImpl<>(productResponsesList, pageable, productResponsesList.size());
     } else {
-      responses = productService.getProducts(
+      responses =
+          productService.getProducts(
               PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sorting));
     }
 
