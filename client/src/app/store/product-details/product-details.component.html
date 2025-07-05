@@ -1,0 +1,44 @@
+<div *ngIf="product" class="container mt-4">
+  <div class="row">
+    <div class="col-md-6">
+      <!-- Product Image -->
+      <div class="product-image-container">
+        <img [alt]="product.name" [src]="'assets/images/products/' + extractImageName()"
+             class="img-fluid product-image"/>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <!-- Product Details -->
+      <h2 class="product-title">{{ product.name }}</h2>
+      <p class="product-description text-muted">{{ product.description }}</p>
+      <div class="product-info">
+        <div class="product-info-item">
+          <strong>Price:</strong>
+          <span class="product-price">{{ product.price | currency: 'INR' }}</span>
+        </div>
+        <div class="product-info-item">
+          <strong>Brand:</strong>
+          <span class="product-brand">{{ product.productBrand }}</span>
+        </div>
+        <div class="product-info-item">
+          <strong>Type:</strong>
+          <span class="product-type">{{ product.productType }}</span>
+        </div>
+        <!-- Quantity Control -->
+        <div class="quantity-control">
+          <strong>Quantity:</strong>
+          <button (click)="decrementQuantity()" class="quantity-button">
+            <i class="fa fa-minus"></i>
+          </button>
+          <span class="quantity">{{ quantity }}</span>
+          <button (click)="incrementQuantity()" class="quantity-button">
+            <i class="fa fa-plus"></i>
+          </button>
+        </div>
+      </div>
+      <!-- Add to Cart Button (if applicable) -->
+      <button (click)="addToCart()" class="btn btn-primary add-to-cart-button">Add to Cart</button>
+      <button class="btn btn-secondary go-back-button" routerLink="/store">Go Back to Store</button>
+    </div>
+  </div>
+</div>

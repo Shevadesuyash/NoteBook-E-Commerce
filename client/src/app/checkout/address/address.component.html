@@ -1,0 +1,57 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="addressForm" class="address-form">
+  <div class="mb-3">
+    <label class="form-label" for="fname"><i class="fa fa-user"></i> First Name</label>
+    <input autocomplete="off" class="form-control" formControlName="Fname" id="fname" required type="text">
+    <mat-error *ngIf="addressForm.get('Fname')?.hasError('required') && addressForm.get('Fname')?.touched"
+               class="error-message">
+      <span class="text-danger"><i class="fas fa-exclamation-circle"></i> First Name is required.</span>
+    </mat-error>
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="lname"><i class="fa fa-user"></i> Last Name</label>
+    <input autocomplete="off" class="form-control" formControlName="Lname" id="lname" required type="text">
+    <mat-error *ngIf="addressForm.get('Lname')?.hasError('required') && addressForm.get('Lname')?.touched"
+               class="error-message">
+      <span class="text-danger"><i class="fas fa-exclamation-circle"></i> Last Name is required.</span>
+    </mat-error>
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="street"><i class="fa fa-map-marker-alt"></i> Street</label>
+    <input autocomplete="off" class="form-control" formControlName="Street" id="street" required type="text">
+    <mat-error *ngIf="addressForm.get('Street')?.hasError('required') && addressForm.get('Street')?.touched"
+               class="error-message">
+      <span class="text-danger"><i class="fas fa-exclamation-circle"></i> Street is required.</span>
+    </mat-error>
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="city"><i class="fa fa-city"></i> City</label>
+    <input autocomplete="off" class="form-control" formControlName="City" id="city" required type="text">
+    <mat-error *ngIf="addressForm.get('City')?.hasError('required') && addressForm.get('City')?.touched"
+               class="error-message">
+      <span class="text-danger"><i class="fas fa-exclamation-circle"></i> City is required.</span>
+    </mat-error>
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="state"><i class="fa fa-flag"></i> State</label>
+    <input autocomplete="off" class="form-control" formControlName="State" id="state" required type="text">
+    <mat-error *ngIf="addressForm.get('State')?.hasError('required') && addressForm.get('State')?.touched"
+               class="error-message">
+      <span class="text-danger"><i class="fas fa-exclamation-circle"></i> State is required.</span>
+    </mat-error>
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="zipcode"><i class="fa fa-envelope"></i> Zip Code</label>
+    <input autocomplete="off" class="form-control" formControlName="ZipCode" id="zipcode" required type="text">
+    <mat-error *ngIf="addressForm.get('ZipCode')?.hasError('required') && addressForm.get('ZipCode')?.touched"
+               class="error-message">
+      <span class="text-danger"><i class="fas fa-exclamation-circle"></i> Zip Code is required.</span>
+    </mat-error>
+    <mat-error *ngIf="addressForm.get('ZipCode')?.hasError('pattern') && addressForm.get('ZipCode')?.touched"
+               class="error-message">
+      <span class="text-danger"><i class="fas fa-exclamation-circle"></i> Invalid ZIP code.</span>
+    </mat-error>
+  </div>
+  <button (click)="goToNextStep()" [disabled]="!addressForm.valid" class="btn btn-primary" type="button">
+    <i class="fa fa-arrow-right"></i> Next
+  </button>
+</form>
