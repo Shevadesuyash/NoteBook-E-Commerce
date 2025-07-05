@@ -7,30 +7,34 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="Product")
+@Table(name = "Product")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="Id")
-    private Integer id;
-    @Column(name="Name")
-    private String name;
-    @Column(name="Description")
-    private String description;
-    @Column(name="Price")
-    private Long price;
-    @Column(name="PictureUrl")
-    private String pictureUrl;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
+  private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name= "ProductBrandId", referencedColumnName = "Id")
-    private Brand brand;
+  @Column(name = "name")
+  private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name= "ProductTypeId", referencedColumnName = "Id")
-    private Type type;
+  @Column(name = "description")
+  private String description;
+
+  @Column(name = "price")
+  private Long price;
+
+  @Column(name = "picture_url")
+  private String pictureUrl;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "product_brand_id", referencedColumnName = "Id")
+  private Brand brand;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "product_type_id", referencedColumnName = "Id")
+  private Type type;
 }

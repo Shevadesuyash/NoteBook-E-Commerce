@@ -1,0 +1,41 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="text-center">Login</h2>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+            <div class="mb-3">
+              <label class="form-label" for="username">UserName</label>
+              <input autocomplete="off" class="form-control" formControlName="username" id="username"
+                     placeholder="Enter your UserName" type="text">
+              <div *ngIf="loginForm.get('username')?.hasError('required') && loginForm.get('username')?.touched"
+                   class="text-danger">
+                UserName is required
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="password">Password</label>
+              <input class="form-control" formControlName="password" id="password" placeholder="Enter your password"
+                     type="password">
+              <div *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched"
+                   class="text-danger">
+                Password is required
+              </div>
+            </div>
+            <div class="mb-3 form-check">
+              <input class="form-check-input" formControlName="rememberMe" id="rememberMe" type="checkbox">
+              <label class="form-check-label" for="rememberMe">Remember Me</label>
+            </div>
+            <div class="d-grid gap-2">
+              <button [disabled]="!loginForm.valid" class="btn btn-primary" type="submit">Login</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

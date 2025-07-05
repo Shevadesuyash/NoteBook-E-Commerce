@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 1
-      author: your-name
+      author: Suyash Shevade
       changes:
         - createTable:
             tableName: brand
@@ -78,7 +78,7 @@ databaseChangeLog:
 
   - changeSet:
       id: 2
-      author: your-name
+      author: Suyash Shevade
       changes:
         - insert:
             tableName: brand
@@ -125,7 +125,7 @@ databaseChangeLog:
 
   - changeSet:
       id: 3
-      author: your-name
+      author: Suyash Shevade
       changes:
         - insert:
             tableName: type
@@ -169,6 +169,36 @@ databaseChangeLog:
               - column:
                   name: name
                   value: Premium Journals
+        - insert:
+            tableName: type
+            columns:
+              - column:
+                  name: name
+                  value: Exam Pads/Boards
+        - insert:
+            tableName: type
+            columns:
+              - column:
+                  name: name
+                  value: Activity Books
+        - insert:
+            tableName: type
+            columns:
+              - column:
+                  name: name
+                  value: Files and Folders
+        - insert:
+            tableName: type
+            columns:
+              - column:
+                  name: name
+                  value: Writing Instruments
+        - insert:
+            tableName: type
+            columns:
+              - column:
+                  name: name
+                  value: Adhesives
 
   - changeSet:
       id: 4
