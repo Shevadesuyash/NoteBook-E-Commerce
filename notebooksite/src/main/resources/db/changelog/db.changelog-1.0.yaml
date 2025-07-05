@@ -169,6 +169,36 @@ databaseChangeLog:
               - column:
                   name: name
                   value: Premium Journals
+        - insert:
+            tableName: type
+            columns:
+              - column:
+                  name: name
+                  value: Exam Pads/Boards
+        - insert:
+            tableName: type
+            columns:
+              - column:
+                  name: name
+                  value: Activity Books
+        - insert:
+            tableName: type
+            columns:
+              - column:
+                  name: name
+                  value: Files and Folders
+        - insert:
+            tableName: type
+            columns:
+              - column:
+                  name: name
+                  value: Writing Instruments
+        - insert:
+            tableName: type
+            columns:
+              - column:
+                  name: name
+                  value: Adhesives
 
   - changeSet:
       id: 4
