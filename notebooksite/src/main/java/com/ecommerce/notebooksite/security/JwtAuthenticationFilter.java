@@ -30,35 +30,39 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
   protected void doFilterInternal(
       HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {
+
     String requestHeader = request.getHeader("Authorization");
     log.info("Header : {}", requestHeader);
 
     String username = null;
     String token = null;
 
-    if (requestHeader == null || !requestHeader.startsWith("Bearer ")) {
+    if (requestHeader != null && requestHeader.startsWith("Bearer ")) {
       token = requestHeader.substring(7);
       try {
         username = this.jwtHelper.getUserNameFromToken(token);
       } catch (Exception e) {
-        log.error("Error in getting username from token" + e.getMessage());
+        log.error("Error extracting username from token: {}", e.getMessage());
       }
     } else {
-      log.error("Authorization header not found");
+      log.warn("Authorization header is missing or does not start with Bearer");
     }
+
     if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
       UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-      Boolean isTokenValid = this.jwtHelper.validateToken(token, userDetails);
+      boolean isTokenValid = this.jwtHelper.validateToken(token, userDetails);
       if (isTokenValid) {
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        UsernamePasswordAuthenticationToken authenticationToken =
+            new UsernamePasswordAuthenticationToken(
+                userDetails, null, userDetails.getAuthorities());
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-
       } else {
-        log.info("Token is not valid");
+        log.warn("Token is not valid for user: {}", username);
       }
     }
-    log.info("Filtering on {}", request.getRequestURI());
+
+    log.info("Filtering request: {}", request.getRequestURI());
     filterChain.doFilter(request, response);
   }
 }
